@@ -1,0 +1,190 @@
+// Variables for consistent theming
+$primary-color: #6366f1; // Indigo 500
+$dark-text: #1a202c;    // Almost black
+$medium-gray-text: #4a5568; // Medium gray
+$light-gray-bg: #f8fafc; // Light gray background
+$white: #ffffff;
+$shadow-light: rgba(0, 0, 0, 0.1);
+$shadow-medium: rgba(0, 0, 0, 0.2);
+
+// Mixin for responsive sizing
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == sm {
+        @media (min-width: 640px) { @content; }
+    } @else if $breakpoint == md {
+        @media (min-width: 768px) { @content; }
+    } @else if $breakpoint == lg {
+        @media (min-width: 1024px) { @content; }
+    } @else if $breakpoint == xl {
+        @media (min-width: 1280px) { @content; }
+    }
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: $light-gray-bg;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Ensure elements inherit box-sizing
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+.about {
+    padding: 4rem 1rem; // py-16, px-4 equivalent
+    background-color: $white; // Assuming this section itself might have a white background
+
+    @include respond-to(sm) {
+        padding: 5rem 2rem; // Adjust padding for small screens and up
+    }
+    @include respond-to(lg) {
+        padding: 6rem 4rem; // Adjust padding for large screens and up
+    }
+
+    .container {
+        max-width: 1400px; // Equivalent to mx-auto, but with a max-width for better control
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .heading {
+        text-align: center;
+        margin-bottom: 5rem; // mb-12 equivalent
+
+        h2 {
+            position: relative;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: $dark-text;
+            margin-bottom: 1rem;
+
+            @include respond-to(sm) {
+                font-size: 3rem; // Larger heading for bigger screens
+            }
+
+            span {
+                color: $primary-color;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: -5px;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 4px;
+                background-color: $primary-color;
+                border-radius: 9999px;
+            }
+        }
+
+        p {
+            font-size: 1.125rem;
+            color: $medium-gray-text;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 1rem auto 2.5rem; // mt-4 and mb-2.5rem equivalent
+        }
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column; // flex-col by default
+        align-items: center; // items-center by default
+        gap: 3rem; // space-x-12 equivalent using gap
+
+        @include respond-to(lg) {
+            flex-direction: row; // lg:flex-row
+            justify-content: space-between;
+            align-items: flex-start; // Align items to the top for a cleaner look
+            flex-wrap: wrap; // allow wrapping when space is tight
+        }
+
+        // children use calc to subtract half the gap so two columns don't overflow
+        .image-container,
+        .text-content {
+            width: 100%;
+
+            @include respond-to(lg) {
+                flex: 0 0 calc(50% - 1.5rem); // gap is 3rem so subtract half (1.5rem)
+                max-width: calc(50% - 1.5rem);
+            }
+        }
+
+        .image-container {
+            margin-bottom: 2rem; // mb-8 lg:mb-0
+            @include respond-to(lg) {
+                margin-bottom: 0;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 0.5rem; // rounded-lg
+                box-shadow: 0 10px 15px -3px $shadow-light, 0 4px 6px -2px $shadow-light; // shadow-lg
+                object-fit: cover; // Ensure image covers the area
+            }
+        }
+
+        .text-content {
+            width: 100%; // lg:w-1/2 equivalent
+            @include respond-to(lg) {
+                width: 48%; // Slightly less than 50% to account for gap
+            }
+
+            h3 {
+                font-size: 2rem; // text-3xl
+                font-weight: 600; // font-semibold
+                color: $dark-text; // text-gray-800
+                margin-bottom: 1.5rem; // mb-6
+                line-height: 1.25; // leading-tight
+
+                @include respond-to(sm) {
+                    font-size: 2.25rem;
+                }
+            }
+
+            p {
+                color: #374151; // text-gray-700 - slightly darker for better readability
+                font-size: 1.125rem; // text-lg
+                line-height: 1.75; // leading-relaxed
+                margin-bottom: 2rem; // mb-8
+            }
+
+            .features-grid {
+                display: grid;
+                grid-template-columns: 1fr; // grid-cols-1
+                gap: 1.5rem; // gap-y-6 gap-x-8
+
+                @include respond-to(sm) {
+                    grid-template-columns: repeat(2, 1fr); // sm:grid-cols-2
+                }
+
+                .feature-item {
+                    display: flex;
+                    align-items: center; // items-center
+                    gap: 0.75rem; // space-x-3
+
+                    svg {
+                        flex-shrink: 0; // flex-shrink-0
+                        color: $primary-color; // text-indigo-500
+                        width: 24px;
+                        height: 24px;
+                    }
+
+                    h4 {
+                        font-size: 1.125rem; // text-lg
+                        font-weight: 500; // font-medium
+                        color: $dark-text; // text-gray-800
+                    }
+                }
+            }
+        }
+    }
+}

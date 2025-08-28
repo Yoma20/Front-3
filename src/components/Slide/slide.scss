@@ -1,0 +1,75 @@
+.slide {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 100px;
+
+    .container {
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+        .carousel-prev,
+        .carousel-next {
+            width: 50px;
+            height: 50px;
+            background-color: rgb(237, 236, 236);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+
+    /* Normalize slide wrapper and items to avoid asymmetric horizontal spacing */
+    .slide-wrapper {
+        box-sizing: border-box;
+        padding-inline: 1rem; /* same horizontal inset as main container */
+        margin-inline: auto;
+        width: 100%;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* The track that holds slides (carousel library classes included) */
+    .slide-track,
+    .slick-track,
+    .swiper-wrapper,
+    .carousel-track {
+        display: flex;
+        gap: 1.5rem;
+        align-items: stretch;
+        margin: 0;      /* remove unexpected lateral margin */
+        padding: 0;     /* remove unexpected lateral padding */
+        box-sizing: border-box;
+        transform: translateZ(0); /* helps rendering consistency */
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    /* Individual slide/item */
+    .slide-item,
+    .slick-slide,
+    .swiper-slide,
+    .carousel-item {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        margin: 0;     /* remove stray margins that shift one side */
+        padding: 0;    /* keep padding internal only */
+        min-width: 0;  /* prevent overflow due to long children */
+        transform: translateZ(0);
+    }
+
+    /* Force library wrappers to not add padding/margin */
+    .slick-list,
+    .swiper-container,
+    .carousel-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box;
+    }
+
+    /* Optional: snap to integer pixels to avoid 0.5px visual offsets */
+    .slide-track > * {
+        will-change: transform;
+        backface-visibility: hidden;
+    }
+}

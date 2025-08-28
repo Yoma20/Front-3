@@ -1,5 +1,5 @@
 import React from 'react';
-import './Trustedby.scss';
+import './TrustedBy.scss';
 
 
 // Lucide icons
